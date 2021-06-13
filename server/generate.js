@@ -6,7 +6,7 @@ var database = {
     lineupList : []
 }
 
-for (var i = 0; i < 300; i++) {
+for (var i = 0; i < 100; i++) {
   database.playerList.push({
     id: i,
     date: "2021-01-01", 
@@ -17,7 +17,7 @@ for (var i = 0; i < 300; i++) {
     inj: 'O',
     team: "LAL", 
     salary: 10000,
-    ppj_proj: 56.6, 
+    ppg_proj: 56.6, 
     value_proj: 4.6
   });
 }
@@ -33,12 +33,12 @@ for (var i = 0; i< 8; i++) {
         inj: 'O',
         team: "LAL", 
         salary: 10000,
-        ppj_proj: 56.6, 
+        ppg_proj: 56.6, 
         value_proj: 4.6
     });
 }
 
-for (var i = 0; i< 100; i++) {
+for (var i = 0; i< 10; i++) {
     database.lineupList.push(database.lineup);
 }
 

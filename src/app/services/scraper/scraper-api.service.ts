@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -11,10 +12,12 @@ export class ScraperService {
   sports: []; 
   platforms: []; 
   providers: []; 
+  playerList: []
   // private DATE_URL = "http:/localhost:3000/getDate"
   private SPORTS_URL = "http://localhost:3000/getSupportedSports"
   private PLATFORMS_URL = "http://localhost:3000/getSupportedPlatforms"
   private PROVIDERS_URL =  "http://localhost:3000/getSupportedProviders" 
+  private PLAYER_LIST_URL =  "http://localhost:3000/playerList"
 
   constructor(public httpClient: HttpClient) { }
 
@@ -60,6 +63,12 @@ export class ScraperService {
   }
   getProviders(): []{
     return this.providers;
+  }
+
+
+  getPlayerList(): Observable<[]>  {
+    return this.httpClient.get<[]>(this.PLAYER_LIST_URL)
+      .pipe(tap((response) => this.playerList = response as any))
   }
 
 }

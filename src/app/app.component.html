@@ -13,20 +13,77 @@
   </h1>  
 </mat-toolbar>
 <div>
-  <h1>Supported Providers</h1>
-  <ul>
-    <li *ngFor="let provider of providers">{{provider}}</li>
-  </ul>
-  
-  <h1>Supported Platforms</h1>
-  <ul>
-    <li *ngFor="let platform of platforms">{{platform}}</li>
-  </ul>
-  <h1>Supported Sports</h1>
-  <ul>
-    <li *ngFor="let sport of sports">{{sport}}</li>
-  </ul>
 
+  <mat-form-field appearance="outline">
+    <mat-label>Select Platform</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let platform of platforms" [value]="platform">{{platform}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Select Sport</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let sport of sports" [value]="sport">{{sport}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="fetchPlayers()">View Eligible Players</button>
+
+</div>
+<div *ngIf="playerList.length > 0">
+  <table mat-table [dataSource]="playerList" class="mat-elevation-z8">
+
+    
+
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+  
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> Position </th>
+      <td mat-cell *matCellDef="let element"> {{element.pos}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+
+       <ng-container matColumnDef="team">
+        <th mat-header-cell *matHeaderCellDef> team </th>
+        <td mat-cell *matCellDef="let element"> {{element.team}} </td>
+      </ng-container>
+
+
+        <ng-container matColumnDef="inj">
+          <th mat-header-cell *matHeaderCellDef> Injury Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.inj}} </td>
+        </ng-container>
+  
+    
+          <ng-container matColumnDef="salary">
+            <th mat-header-cell *matHeaderCellDef> Salary </th>
+            <td mat-cell *matCellDef="let element"> {{element.salary}} </td>
+          </ng-container>
+   
+        <ng-container matColumnDef="ppg_proj">
+          <th mat-header-cell *matHeaderCellDef> PPG Proj </th>
+          <td mat-cell *matCellDef="let element"> {{element.ppg_proj}} </td>
+        </ng-container>
+
+          <ng-container matColumnDef="value_proj">
+            <th mat-header-cell *matHeaderCellDef> Value Proj </th>
+            <td mat-cell *matCellDef="let element"> {{element.value_proj}} </td>
+          </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </div>
 
 
