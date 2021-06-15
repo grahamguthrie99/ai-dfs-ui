@@ -1,0 +1,49 @@
+
+<ng-container [ngSwitch]="stepperOrientation | async">
+    <div *ngSwitchCase="'horizontal'">Make your screen smaller to see a vertical stepper</div>
+    <div *ngSwitchCase="'vertical'">Make your screen larger to see a horizontal stepper</div>
+</ng-container>
+  <mat-stepper
+  class="example-stepper"
+  [orientation]="(stepperOrientation | async)!"
+  [linear]="true">
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Configuration</ng-template>
+        <mat-form-field appearance="outline">
+            <mat-label>Select Platform</mat-label>
+            <mat-select required formControlName="firstCtrl" >
+              <mat-option *ngFor="let platform of platforms" [value]="platform">{{platform}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Select Sport</mat-label>
+            <mat-select required formControlName="secondCtrl" >
+              <mat-option *ngFor="let sport of sports" [value]="sport">{{sport}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <div>
+            <button mat-raised-button matStepperNext color="primary" (click)="fetchPlayers()">View Eligible Players</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Filter Players</ng-template>
+        <app-player-table [playerList]="playerList">
+        </app-player-table>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button>Generate Lineups</button>
+      </div>
+    </mat-step>
+</mat-stepper>

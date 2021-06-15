@@ -4,19 +4,31 @@ import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
+import {MatStepperModule} from '@angular/material/stepper'; 
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { ScraperService } from './services/scraper/scraper-api.service';
+import { PlayerTableComponent } from './player-table/player-table.component';
+import { LineupDisplayComponent } from './lineup-display/lineup-display.component';
+import { BaseComponent } from './_shared/base/base.component';
+import { HeaderComponent } from './_shared/header/header.component';
+import { FormWrapperComponent } from './form-wrapper/form-wrapper.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    PlayerTableComponent,
+    LineupDisplayComponent,
+    BaseComponent,
+    HeaderComponent,
+    FormWrapperComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +39,11 @@ import { ScraperService } from './services/scraper/scraper-api.service';
     MatFormFieldModule, 
     MatButtonModule, 
     MatSelectModule, 
-    MatTableModule
+    MatTableModule, 
+    MatStepperModule, 
+    ReactiveFormsModule, 
+    FormsModule, 
+    MatPaginatorModule
   ],
   providers: [
     ScraperService,
