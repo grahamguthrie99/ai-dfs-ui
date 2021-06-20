@@ -1,5 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-
+import { Component, Input, OnInit } from '@angular/core';
 
 
 @Component({
@@ -13,13 +12,11 @@ export class PlayerTableComponent implements OnInit {
   playerList: [] = []; 
   displayedColumns: string[] = ['id', 'position', 'name', 'team', 'inj', 'salary', 'ppg_proj', 'value_proj'];
   
- 
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  
 
 }

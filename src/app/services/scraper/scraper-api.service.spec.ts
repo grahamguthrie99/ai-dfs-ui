@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ScraperAPIService } from './scraper-api.service';
+import { ScraperService } from './scraper-api.service';
 
-describe('ScraperAPIService', () => {
-  let service: ScraperAPIService;
+describe('ScraperService', () => {
+  let service: ScraperService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ScraperAPIService);
+    service = TestBed.inject(ScraperService);
   });
 
   it('should be created', () => {

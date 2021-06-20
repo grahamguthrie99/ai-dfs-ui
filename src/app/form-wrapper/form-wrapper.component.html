@@ -5,7 +5,7 @@
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Configuration</ng-template>
-        <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline">
             <mat-label>Select Platform</mat-label>
             <mat-select required formControlName="firstCtrl" >
               <mat-option *ngFor="let platform of platforms" [value]="platform">{{platform}}</mat-option>
@@ -24,21 +24,24 @@
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Filter Players</ng-template>
-        <app-player-table [playerList]="playerList">
-        </app-player-table>
+        <ng-template matStepLabel>Review Players</ng-template>
+        <!-- <mat-form-field appearance="outline">
+          <mat-label>Select Platform</mat-label>
+          <mat-select required formControlName="firstCtrl" >
+            <mat-option *ngFor="let platform of platforms" [value]="platform">{{platform}}</mat-option>
+          </mat-select>
+        </mat-form-field> -->
         <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext >Next</button>
         </div>
       </form>
     </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button>Generate Lineups</button>
-      </div>
+    <mat-step [stepControl]="thirdFormGroup">
+      <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Generate Lineups</ng-template>
+        <div>
+          <button mat-button (click)="generateLineups()">Generate</button>
+        </div>
+      </form>
     </mat-step>
 </mat-stepper>

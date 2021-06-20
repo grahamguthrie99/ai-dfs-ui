@@ -20,13 +20,14 @@ export class FormWrapperComponent implements OnInit {
   playerList: [] = [];
 
   firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required]
-  });
-  secondFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required], 
     secondCtrl: ['', Validators.required]
   });
+  secondFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required]
+  });
   thirdFormGroup = this._formBuilder.group({
-    thirdCtrl: ['', Validators.required]
+    firstCtrl: ['', Validators.required]
   });
   stepperOrientation: Observable<StepperOrientation>;
 
@@ -44,6 +45,10 @@ export class FormWrapperComponent implements OnInit {
 
   fetchPlayers(){
     this.scraperService.getPlayerList().subscribe(playerList => this.playerList = playerList)
+  }
+
+  generateLineups(){
+    window.alert("Lineups generate"); 
   }
 
 }
