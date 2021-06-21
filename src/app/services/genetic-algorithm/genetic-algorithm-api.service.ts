@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GeneticAlgorithmAPIService {
 
+  private PRODUCTION_URL = "https://ai-dfs-genetic-algorithm.herokuapp.com/api/v1/"
   private SERVER_URL = "http://localhost:3000";
 
   constructor(private httpClient: HttpClient) { }
