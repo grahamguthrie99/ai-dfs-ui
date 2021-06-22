@@ -15,7 +15,6 @@ export class ScraperService {
   playerList: []
 
   private PRODUCTION_URL = "https://ai-dfs-scraper.herokuapp.com/api/v1"
-  private LOCAL_URL = "http://localhost:3000"
   
   private BASE_URL = this.PRODUCTION_URL; 
 
@@ -68,12 +67,13 @@ export class ScraperService {
   getPlatforms(): []{
     return this.platforms;
   }
+  
   getProviders(): []{
     return this.providers;
   }
 
-
   getPlayerList(provider: string, platform: string, sport: string, date: string): Observable<[]>  {
+    console.log(date)
     return this.httpClient.get<[]>(this.BASE_URL + this.PLAYER_LIST_URL + "/" + provider + "/" + platform + "/" + sport + "/" + date)
       .pipe(tap((response) => this.playerList = response as any))
   }

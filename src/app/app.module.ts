@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {MatStepperModule} from '@angular/material/stepper'; 
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatInputModule} from '@angular/material/input'
 import {MatIconModule} from '@angular/material/icon'
 import {MatChipsModule} from '@angular/material/chips'
 import { ScraperService } from './services/scraper/scraper-api.service';
@@ -47,7 +48,8 @@ import { FormWrapperComponent } from './form-wrapper/form-wrapper.component';
     FormsModule, 
     MatPaginatorModule, 
     MatChipsModule, 
-    MatIconModule
+    MatIconModule, 
+    MatInputModule, 
   ],
   providers: [
     ScraperService,

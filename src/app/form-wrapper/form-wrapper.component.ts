@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { StepperOrientation } from '@angular/material/stepper';
 import { ScraperService } from '../services/scraper/scraper-api.service';
 import { map } from 'rxjs/internal/operators/map';
+import { GeneticAlgorithmService } from '../services/genetic-algorithm/genetic-algorithm-api.service';
 
 
 export interface Player {
@@ -30,15 +31,19 @@ export class FormWrapperComponent implements OnInit {
 
   date: string; 
   sports: []; 
+  sport: string; 
   platforms: []; 
+  platform: string; 
   providers: []; 
   playerList: Player[];
+  lineupList: []; 
   population: number; 
   generations: number; 
   visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
+  loading = true; 
 
   configurationFormGroup = this._formBuilder.group({
     platformCtrl: ['', Validators.required], 
@@ -53,21 +58,22 @@ export class FormWrapperComponent implements OnInit {
   });
   stepperOrientation: Observable<StepperOrientation>;
 
-  constructor(public scraperService: ScraperService, private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver) { 
+  constructor(public scraperService: ScraperService, public gaService: GeneticAlgorithmService, private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver) { 
     this.stepperOrientation = breakpointObserver.observe('(min-width: 800px)')
       .pipe(map(({matches}) => matches ? 'horizontal' : 'vertical'));
 
   }
 
   ngOnInit(): void {
-    // this.date = this.scraperService.getDate()
-    this.date = "2021-06-20"
+    this.date = this.scraperService.getDate()
     this.sports = this.scraperService.getSports(); 
     this.platforms = this.scraperService.getPlatforms(); 
     this.providers = this.scraperService.getProviders(); 
   }
 
   fetchPlayers(){
+    this.platform = this.configurationFormGroup.get('platformCtrl')?.value
+    this.sport = this.configurationFormGroup.get('sportCtrl')?.value
     this.scraperService.getPlayerList("DailyFantasyFuel", this.configurationFormGroup.get('platformCtrl')?.value, this.configurationFormGroup.get('sportCtrl')?.value, this.date).subscribe(playerList => this.playerList = playerList)
   }
 
@@ -80,7 +86,16 @@ export class FormWrapperComponent implements OnInit {
   }
 
   generateLineups(){
-    window.alert("Lineups generate"); 
+    const body = {
+      player_list: this.playerList, 
+      parameters: {
+        generation_count: this.gaFormGroup.get('generationCtrl')?.value, 
+        population_size: this.gaFormGroup.get('populationCtrl')?.value, 
+        platform: this.platform, 
+        sport: this.sport
+      }
+    }
+    this.gaService.generateLineups(body).subscribe(lineupList => this.lineupList = lineupList)
+    console.log(this.lineupList)
   }
-
 }
