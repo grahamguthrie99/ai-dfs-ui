@@ -1,19 +1,19 @@
-  <mat-stepper
+<mat-stepper
   class="example-stepper"
   [orientation]="(stepperOrientation | async)!"
   [linear]="true">
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
+    <mat-step [stepControl]="configurationFormGroup">
+      <form [formGroup]="configurationFormGroup">
         <ng-template matStepLabel>Configuration</ng-template>
           <mat-form-field appearance="outline">
             <mat-label>Select Platform</mat-label>
-            <mat-select required formControlName="firstCtrl" >
+            <mat-select required formControlName="platformCtrl" >
               <mat-option *ngFor="let platform of platforms" [value]="platform">{{platform}}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Select Sport</mat-label>
-            <mat-select required formControlName="secondCtrl" >
+            <mat-select required formControlName="sportCtrl" >
               <mat-option *ngFor="let sport of sports" [value]="sport">{{sport}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -22,26 +22,48 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
+    <mat-step [stepControl]="playerFormGroup">
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+      <form [formGroup]="playerFormGroup">
         <ng-template matStepLabel>Review Players</ng-template>
-        <!-- <mat-form-field appearance="outline">
-          <mat-label>Select Platform</mat-label>
-          <mat-select required formControlName="firstCtrl" >
-            <mat-option *ngFor="let platform of platforms" [value]="platform">{{platform}}</mat-option>
-          </mat-select>
-        </mat-form-field> -->
-        <div>
-          <button mat-button matStepperNext >Next</button>
-        </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Player List</mat-label>
+          <mat-chip-list #chipList aria-label="Player selection" formControlName="playersCtrl">
+            <mat-chip *ngFor="let player of playerList" [selectable]="selectable"
+                     [removable]="removable" (removed)="removePlayer(player)">
+              {{player.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder=""
+                   matInput 
+                   [matChipInputFor]="chipList"
+                   >
+          </mat-chip-list>
+        </mat-form-field>
       </form>
     </mat-step>
-    <mat-step [stepControl]="thirdFormGroup">
-      <form [formGroup]="thirdFormGroup">
+    <mat-step [stepControl]="gaFormGroup">
+      <form [formGroup]="gaFormGroup">
         <ng-template matStepLabel>Generate Lineups</ng-template>
+        <mat-form-field appearance="fill" >
+          <mat-label>Population Count</mat-label>
+          <input matInput formControlName="populationCtrl" type="number" [value]="population" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" >
+          <mat-label>Generation Count</mat-label>
+          <input matInput formControlName="generationCtrl"  type="number" [value]="generations" required>
+        </mat-form-field>
         <div>
-          <button mat-button (click)="generateLineups()">Generate</button>
+          <button mat-button (click)="generateLineups()">Generate Lineups</button>
         </div>
       </form>
     </mat-step>
 </mat-stepper>
+
+<div *ngFor="let lineup of lineupList">
+    <div>Lineup</div>
+    <app-player-table [playerList]="lineup"> </app-player-table>
+</div>

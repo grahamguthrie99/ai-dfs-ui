@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GeneticAlgorithmAPIService } from './genetic-algorithm-api.service';
+import { GeneticAlgorithmService } from './genetic-algorithm-api.service';
 
-describe('GeneticAlgorithmAPIService', () => {
-  let service: GeneticAlgorithmAPIService;
+describe('GeneticAlgorithmService', () => {
+  let service: GeneticAlgorithmService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(GeneticAlgorithmAPIService);
+    service = TestBed.inject(GeneticAlgorithmService);
   });
 
   it('should be created', () => {

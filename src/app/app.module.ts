@@ -13,6 +13,9 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {MatStepperModule} from '@angular/material/stepper'; 
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatInputModule} from '@angular/material/input'
+import {MatIconModule} from '@angular/material/icon'
+import {MatChipsModule} from '@angular/material/chips'
 import { ScraperService } from './services/scraper/scraper-api.service';
 import { PlayerTableComponent } from './player-table/player-table.component';
 import { LineupDisplayComponent } from './lineup-display/lineup-display.component';
@@ -43,7 +46,10 @@ import { FormWrapperComponent } from './form-wrapper/form-wrapper.component';
     MatStepperModule, 
     ReactiveFormsModule, 
     FormsModule, 
-    MatPaginatorModule
+    MatPaginatorModule, 
+    MatChipsModule, 
+    MatIconModule, 
+    MatInputModule, 
   ],
   providers: [
     ScraperService,

@@ -10,7 +10,7 @@ export class PlayerTableComponent implements OnInit {
 
   @Input()
   playerList: [] = []; 
-  displayedColumns: string[] = ['id', 'position', 'name', 'team', 'inj', 'salary', 'ppg_proj', 'value_proj'];
+  displayedColumns: string[] = ['position', 'name', 'team', 'inj', 'salary', 'ppg_proj', 'value_proj'];
   
 
   constructor() { }

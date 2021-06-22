@@ -13,41 +13,47 @@ export class ScraperService {
   platforms: []; 
   providers: []; 
   playerList: []
-  // private DATE_URL = "http:/localhost:3000/getDate"
-  private SPORTS_URL = "http://localhost:3000/getSupportedSports"
-  private PLATFORMS_URL = "http://localhost:3000/getSupportedPlatforms"
-  private PROVIDERS_URL =  "http://localhost:3000/getSupportedProviders" 
-  private PLAYER_LIST_URL =  "http://localhost:3000/playerList"
+
+  private PRODUCTION_URL = "https://ai-dfs-scraper.herokuapp.com/api/v1"
+  
+  private BASE_URL = this.PRODUCTION_URL; 
+
+  private DATE_URL = "/getDate"
+  private SPORTS_URL = "/getSupportedSports"
+  private PLATFORMS_URL = "/getSupportedPlatforms"
+  private PROVIDERS_URL =  "/getSupportedProviders" 
+  private PLAYER_LIST_URL =  "/getPlayerList"
 
   constructor(public httpClient: HttpClient) { }
 
-  // loadDate(): Promise<any> {
-  //   return this.httpClient.get(this.DATE_URL)
-  //     .pipe(tap((response) => this.date = response as any))
-  //     .toPromise();
-  // }
+  loadDate(): Promise<any> {
+    return this.httpClient.get(this.BASE_URL + this.DATE_URL)
+      .pipe(tap((response) => this.date = response as any))
+      .toPromise();
+  }
 
   loadSports(): Promise<any> {
-    return this.httpClient.get(this.SPORTS_URL)
+    return this.httpClient.get(this.BASE_URL + this.SPORTS_URL)
       .pipe(tap((response) => this.sports = response as any))
       .toPromise();
   }
 
   loadPlatforms(): Promise<any> {
-    return this.httpClient.get(this.PLATFORMS_URL)
+    return this.httpClient.get(this.BASE_URL + this.PLATFORMS_URL)
       .pipe(tap((response) => this.platforms = response as any))
       .toPromise();
   }
 
   loadProviders(): Promise<any> {
-    return this.httpClient.get(this.PROVIDERS_URL)
+    return this.httpClient.get(this.BASE_URL + this.PROVIDERS_URL)
       .pipe(tap((response) => this.providers = response as any))
       .toPromise();
   }
 
   loadProperties(): Promise<any> {
-    // return Promise.all([this.loadDate(), this.loadSports(), this.loadPlatforms(), this.loadProviders()])
-    return Promise.all([this.loadSports(), this.loadPlatforms(), this.loadProviders()])
+    return Promise.all([this.loadDate(), this.loadSports(), this.loadPlatforms(), this.loadProviders()])
+    // return Promise.all([this.loadSports(), this.loadPlatforms(), this.loadProviders()])
+
   }
 
   getDate(): string{
@@ -61,13 +67,14 @@ export class ScraperService {
   getPlatforms(): []{
     return this.platforms;
   }
+  
   getProviders(): []{
     return this.providers;
   }
 
-
-  getPlayerList(): Observable<[]>  {
-    return this.httpClient.get<[]>(this.PLAYER_LIST_URL)
+  getPlayerList(provider: string, platform: string, sport: string, date: string): Observable<[]>  {
+    console.log(date)
+    return this.httpClient.get<[]>(this.BASE_URL + this.PLAYER_LIST_URL + "/" + provider + "/" + platform + "/" + sport + "/" + date)
       .pipe(tap((response) => this.playerList = response as any))
   }
 
