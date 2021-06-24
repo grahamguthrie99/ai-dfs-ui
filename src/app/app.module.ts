@@ -16,6 +16,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatInputModule} from '@angular/material/input'
 import {MatIconModule} from '@angular/material/icon'
 import {MatChipsModule} from '@angular/material/chips'
+import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { ScraperService } from './services/scraper/scraper-api.service';
 import { PlayerTableComponent } from './player-table/player-table.component';
 import { LineupDisplayComponent } from './lineup-display/lineup-display.component';
@@ -50,6 +51,7 @@ import { FormWrapperComponent } from './form-wrapper/form-wrapper.component';
     MatChipsModule, 
     MatIconModule, 
     MatInputModule, 
+    NgxUiLoaderModule,
   ],
   providers: [
     ScraperService,

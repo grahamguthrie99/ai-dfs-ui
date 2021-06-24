@@ -52,8 +52,6 @@ export class ScraperService {
 
   loadProperties(): Promise<any> {
     return Promise.all([this.loadDate(), this.loadSports(), this.loadPlatforms(), this.loadProviders()])
-    // return Promise.all([this.loadSports(), this.loadPlatforms(), this.loadProviders()])
-
   }
 
   getDate(): string{
@@ -73,7 +71,6 @@ export class ScraperService {
   }
 
   getPlayerList(provider: string, platform: string, sport: string, date: string): Observable<[]>  {
-    console.log(date)
     return this.httpClient.get<[]>(this.BASE_URL + this.PLAYER_LIST_URL + "/" + provider + "/" + platform + "/" + sport + "/" + date)
       .pipe(tap((response) => this.playerList = response as any))
   }

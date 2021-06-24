@@ -6,6 +6,7 @@ import { StepperOrientation } from '@angular/material/stepper';
 import { ScraperService } from '../services/scraper/scraper-api.service';
 import { map } from 'rxjs/internal/operators/map';
 import { GeneticAlgorithmService } from '../services/genetic-algorithm/genetic-algorithm-api.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 
 export interface Player {
@@ -58,7 +59,11 @@ export class FormWrapperComponent implements OnInit {
   });
   stepperOrientation: Observable<StepperOrientation>;
 
-  constructor(public scraperService: ScraperService, public gaService: GeneticAlgorithmService, private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver) { 
+  constructor(public scraperService: ScraperService, 
+    public gaService: GeneticAlgorithmService, 
+    private _formBuilder: FormBuilder, 
+    private ngxService: NgxUiLoaderService,
+    breakpointObserver: BreakpointObserver) { 
     this.stepperOrientation = breakpointObserver.observe('(min-width: 800px)')
       .pipe(map(({matches}) => matches ? 'horizontal' : 'vertical'));
 
@@ -72,9 +77,14 @@ export class FormWrapperComponent implements OnInit {
   }
 
   fetchPlayers(){
+    this.ngxService.start(); 
     this.platform = this.configurationFormGroup.get('platformCtrl')?.value
     this.sport = this.configurationFormGroup.get('sportCtrl')?.value
-    this.scraperService.getPlayerList("DailyFantasyFuel", this.configurationFormGroup.get('platformCtrl')?.value, this.configurationFormGroup.get('sportCtrl')?.value, this.date).subscribe(playerList => this.playerList = playerList)
+    this.scraperService.getPlayerList("DailyFantasyFuel", this.configurationFormGroup.get('platformCtrl')?.value, this.configurationFormGroup.get('sportCtrl')?.value, this.date)
+    .subscribe(playerList => {
+      this.playerList = playerList
+      this.ngxService.stop();
+    })
   }
 
 
@@ -86,6 +96,7 @@ export class FormWrapperComponent implements OnInit {
   }
 
   generateLineups(){
+    this.ngxService.start(); 
     const body = {
       player_list: this.playerList, 
       parameters: {
@@ -95,7 +106,9 @@ export class FormWrapperComponent implements OnInit {
         sport: this.sport
       }
     }
-    this.gaService.generateLineups(body).subscribe(lineupList => this.lineupList = lineupList)
-    console.log(this.lineupList)
+    this.gaService.generateLineups(body).subscribe(lineupList => {
+      this.lineupList = lineupList
+      this.ngxService.stop();
+    })
   }
 }
