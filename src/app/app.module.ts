@@ -32,7 +32,7 @@ import { FormWrapperComponent } from './form-wrapper/form-wrapper.component';
     LineupDisplayComponent,
     BaseComponent,
     HeaderComponent,
-    FormWrapperComponent,
+    FormWrapperComponent
   ],
   imports: [
     BrowserModule,
